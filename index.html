@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Covid-19</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<style type="text/css">
+	body{
+		background-color:#EEEEFF;
+	}
+</style>
+</head>
+<body>
+	<nav class="navbar bg-info p-4 justify-content-center">
+		<div class="container">
+			<div class="navbar-header">
+				<img src="covid.png" alt="covid-19" width="75px" height="75px" class="mr-2">
+				<a class="navbar-brand text-light mt-1"><h2>COVID-19</h2></a>
+			</div>
+		</div>
+	</nav>
+	<h1 class="text-center text-success mt-2">COVID-19 Global Informartion</h1>
+<div class="container">
+	<div class="row text-center ml-5">
+		<div class="col-md-5 col-sm-12 col-xs-12 m-1">
+			<div class="card bg-info">
+			  <div class="card-body">
+			    <h4 class="card-title text-light">Confirmed Cases</h4>
+			    <h2 id="glo-confirmed" class="text-light"></h2>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12 col-xs-12 m-1">
+			<div class="card bg-success">
+			  <div class="card-body">
+			    <h4 class="card-title text-light">Recovered</h4>
+			    <h2 id="glo-recovered" class="text-light"></h2>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12 col-xs-12 m-1">
+			<div class="card bg-warning">
+			  <div class="card-body">
+			    <h4 class="card-title text-light">Critical</h4>
+			    <h1 id="glo-critical" class="text-light"></h1>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12 col-xs-12 m-1">
+			<div class="card bg-danger">
+			  <div class="card-body">
+			    <h4 class="card-title text-light">Deaths</h4>
+			    <h1 id="glo-deaths" class="text-light"></h1>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container my-1">
+<h1 class="text-center text-success">Country Wise Information</h1>
+	<div class="form-group">
+	 <label>Select Country</label>
+	 <select id="countries" class="form-control">
+	  <option>Pakistan</option>
+    </select>
+    </div>
+</div>
+<div class="container">
+	<div class="row text-center ml-5">
+		<div class="col-md-5 col-sm-12 col-xs-12 m-1">
+			<div class="card bg-info">
+			  <div class="card-body">
+			    <h4 class="card-title text-light">Confirmed Cases</h4>
+			    <h2 id="c-confirmed" class="text-light"></h2>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12 col-xs-12 m-1">
+			<div class="card bg-success">
+			  <div class="card-body">
+			    <h4 class="card-title text-light">Recovered</h4>
+			    <h2 id="c-recovered" class="text-light"></h2>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12 col-xs-12 m-1">
+			<div class="card bg-warning">
+			  <div class="card-body">
+			    <h4 class="card-title text-light">Critical</h4>
+			    <h1 id="c-critical" class="text-light"></h1>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12 col-xs-12 m-1">
+			<div class="card bg-danger">
+			  <div class="card-body">
+			    <h4 class="card-title text-light">Deaths</h4>
+			    <h1 id="c-deaths" class="text-light"></h1>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
+<nav class="navbar bg-dark p-5 mt-3 justify-content-center">
+	<p class="text-light text-center">Build By<em> Ameer Hamza </em></p>
+</nav>
+<script>
+
+		var country = 'Pakistan';
+	var settings = {
+	"async": true,
+	"crossDomain": true,
+	"url": "https://covid-19-data.p.rapidapi.com/country?format=json&name="+ country +"&date=2020-03-16",
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "covid-19-data.p.rapidapi.com",
+		"x-rapidapi-key": "6d0928bc66msh3f684a6388ec3e4p10e926jsn9dadf913b4aa"
+	}
+}
+
+$.ajax(settings).done(function (response) {
+	document.getElementById('c-confirmed').innerHTML = response[0]['confirmed'];
+	  document.getElementById('c-recovered').innerHTML = response[0]['recovered'];
+	  document.getElementById('c-critical').innerHTML = response[0]['critical'];
+	  document.getElementById('c-deaths').innerHTML = response[0]['deaths'];
+});
+
+	
+
+$("#countries").on('change',function(){
+
+	let countri = $('#countries').val();
+	var settings = {
+	"async": true,
+	"crossDomain": true,
+	"url": "https://covid-19-data.p.rapidapi.com/country?format=json&name="+ countri +"&date=2020-03-16",
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "covid-19-data.p.rapidapi.com",
+		"x-rapidapi-key": "6d0928bc66msh3f684a6388ec3e4p10e926jsn9dadf913b4aa"
+	}
+}
+
+$.ajax(settings).done(function (response) {
+	if(Object.entries(response).length === 0){
+		console.log("Sorry, no data found.Please check back later");
+	}
+	else
+	{
+	  document.getElementById('c-confirmed').innerHTML = response[0]['confirmed'];
+	  document.getElementById('c-recovered').innerHTML = response[0]['recovered'];
+	  document.getElementById('c-critical').innerHTML = response[0]['critical'];
+	  document.getElementById('c-deaths').innerHTML = response[0]['deaths'];
+	}
+});
+
+});
+
+
+var settings1 = {
+	"async": true,
+	"crossDomain": true,
+	"url": "https://covid-19-data.p.rapidapi.com/totals?format=json",
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "covid-19-data.p.rapidapi.com",
+		"x-rapidapi-key": "6d0928bc66msh3f684a6388ec3e4p10e926jsn9dadf913b4aa"
+	}
+}
+
+$.ajax(settings1).done(function (response) {
+	if(Object.entries(response).length === 0){
+		console.log("Sorry, no data found.Please check back later");
+	}
+	else
+	{
+	  document.getElementById('glo-confirmed').innerHTML = response[0]['confirmed'];
+	  document.getElementById('glo-recovered').innerHTML = response[0]['recovered'];
+	  document.getElementById('glo-critical').innerHTML = response[0]['critical'];
+	  document.getElementById('glo-deaths').innerHTML = response[0]['deaths'];
+	}
+});
+
+var settings2 = {
+	
+	"crossDomain": true,
+	"url": "https://restcountries.eu/rest/v2/all",
+	"method": "GET"
+	/*"headers": {
+		"x-rapidapi-host": "covid-19-data.p.rapidapi.com",
+		"x-rapidapi-key": "6d0928bc66msh3f684a6388ec3e4p10e926jsn9dadf913b4aa"
+	}*/
+}
+
+$.ajax(settings2).done(function (response) {
+	//console.log(response);
+	response.forEach(function(res){
+		//console.log(res['population']);
+		$('#countries').append('<option>'+ res['name'] +'<option');
+	})
+		
+});
+
+console.log($('#countries').val().toLowerCase());
+//$().on('change',function(){});
+
+
+</script>
+</body>
+</html>
